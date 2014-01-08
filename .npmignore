@@ -1,0 +1,6 @@
+docs
+specs
+Gruntfile.js
+.jshintrc
+.npmignore
+.idea

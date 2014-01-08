@@ -1,0 +1,34 @@
+{
+  "name": "jasmine-custom-message",
+  "description": "custom failure message on any jasmine assertion",
+  "version": "0.1.0",
+  "homepage": "https://github.com/avrelian/jasmine-custom-message",
+  "author": {
+    "name": "Sergey Radchenko",
+    "email": "avrelian@yandex.ru",
+    "url": "https://github.com/avrelian"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:avrelian/jasmine-custom-message.git"
+  },
+  "bugs": {
+    "url": "https://github.com/avrelian/jasmine-custom-message/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/avrelian/jasmine-custom-message/blob/master/LICENSE"
+    }
+  ],
+  "main": "jasmine-custom-message.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "keywords": [
+    "jasmine",
+    "error message",
+    "failure message",
+    "custom message"
+  ]
+}
