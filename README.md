@@ -65,7 +65,7 @@ describe('test', function() {
 
 ## Lenient
 
-You can pass a raw string instead of message function. Or even a raw string instead of the messages object if only one assertion is present in a givent spec or if you are intrested in only the first of the assertions.
+You can pass a raw string instead of message function. Or even a raw string instead of the messages object if only one assertion is present in a given spec or if you are interested in only the first of the assertions.
 
 #### Example
 
@@ -82,7 +82,7 @@ describe('test', function() {
 ```
 
 ## Front-end usage
-Just include `<script src="PATH-TO/jasmine-custom-message.js"></script>` into your HTML file after script with jasmine itsef.
+Just include `<script src="PATH-TO/jasmine-custom-message.js"></script>` into your HTML file after the script with jasmine itself.
 
 ## Node.js usage
 
