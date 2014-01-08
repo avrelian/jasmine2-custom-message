@@ -8,7 +8,10 @@
       var customMessage = {
         Actual: function(value, messages) {
           this.value = value;
-          this.messages = messages;
+          if (typeof messages == 'string') {
+            messages = {0: messages};
+          }
+          this.messages = messages || {};
         },
         wrapExpect: function() {
           var jasmineExpect = global.expect;
