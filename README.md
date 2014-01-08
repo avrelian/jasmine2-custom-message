@@ -92,3 +92,9 @@ require('jasmine-custom-message');
 ```
 You can save the value returned by `require` into a variable but it already is saved in `jasmine` object as `customMessage`.
 
+## Release plan
+
+`v0.2.0` - specs for Node.js
+`v0.3.0` - specs for browsers
+`v0.4.0` - bower package
+`v0.5.0` - some new features (based on requests from Issues)
