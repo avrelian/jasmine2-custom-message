@@ -82,12 +82,13 @@ describe('test', function() {
 ```
 
 ## Front-end usage
-Just include `<script src="PATH-TO/jasmine-custom-message.js"></script>` into your HTML file after the script with jasmine itself.
+Include `<script src="PATH-TO/jasmine-custom-message.js"></script>` into your HTML file next to `jasmine` script.
 
 ## Node.js usage
 
-Install npm packet `jasmine-custom-message` and require it in your spec file as usual
+Install npm packet `jasmine-custom-message` and require it in your spec file
 ```
-var jasmineCustomMessage = require('jasmine-custom-message');
+require('jasmine-custom-message');
 ```
+You can save the value returned by `require` into a variable but it already is saved in `jasmine` object as `customMessage`.
 
