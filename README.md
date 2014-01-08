@@ -86,7 +86,7 @@ Just include `<script src="PATH-TO/jasmine-custom-message.js"></script>` into yo
 
 ## Node.js usage
 
-Install npm packet `jasmine-custom-message` (CAUTION: not ready yet, sorry) and require it in your spec file as usual
+Install npm packet `jasmine-custom-message` and require it in your spec file as usual
 ```
 var jasmineCustomMessage = require('jasmine-custom-message');
 ```
