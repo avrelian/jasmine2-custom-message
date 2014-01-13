@@ -49,12 +49,10 @@
     init();
   } else {
     if (isCommonJS) {
-      module.exports = {
-        init: init,
-        // for separate testing of jasmine without and with the module
-        wrapIt: wrapIt,
-        wrapExpect: wrapExpect
-      };
+      // for separate testing of jasmine without and with the module
+      init.wrapIt = wrapIt;
+      init.wrapExpect = wrapExpect;
+      module.exports = init;
     }
   }
 })();
