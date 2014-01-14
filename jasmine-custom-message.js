@@ -6,7 +6,7 @@
 
   var wrapIt = function() {
     if (global.jasmine && global.it && !global.it.wrappedForCustomMessages) {
-      global.it = function(it) {
+      global.it = (function(it) {
         var wrappedIt = function(desc, func, customMessages) {
           var spec = it(desc, func);
           if(typeof customMessages != 'object') {
@@ -17,13 +17,13 @@
         };
         wrappedIt.wrappedForCustomMessages = true;
         return wrappedIt;
-      }(global.it);
+      })(global.it);
     }
   };
 
   var wrapExpect = function() {
     if (global.jasmine && global.expect && !global.expect.wrappedForCustomMessages) {
-      global.expect = function(expect) {
+      global.expect = (function(expect) {
         var wrappedExpect = function(actual) {
           var assertion = expect(actual);
           var spec = assertion.spec;
@@ -38,7 +38,7 @@
         };
         wrappedExpect.wrappedForCustomMessages = true;
         return wrappedExpect;
-      }(global.expect);
+      })(global.expect);
     }
   };
 
