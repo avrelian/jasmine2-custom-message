@@ -8,11 +8,11 @@ This script makes it possible to use your own failure message on any jasmine ass
 ```
 describe('test', function() {
   it('should be ok', function() {
-    expect(3).toEqual(4); // => '3 =/= 4'
+    expect(3).toEqual(4); // => 'Custom message'
   }, {
     // 0 - sequential number of an assertion in the spec
     0: function(expected) {
-      return this.actual + ' =/= ' + expected;
+      return 'Custom message';
     }
   });
 });
@@ -81,6 +81,24 @@ describe('test', function() {
 });
 ```
 
+## Powerful
+
+You can use expected and actual value of the assertion in your custom message.
+
+#### Example
+
+```
+describe('test', function() {
+  it('should be ok', function() {
+    expect(3).toEqual(4); // => '3 =/= 4'
+  }, {
+    0: function(expected) {
+      return this.actual + ' =/= ' + expected;
+    }
+  });
+});
+```
+
 ## Front-end usage
 Include
 ```
@@ -90,37 +108,51 @@ into your HTML file next to `jasmine` script and execute
 ```
 window.jasmine.initJasmineCustomMessage();
 ```
-function before your jasmine test declaration.
+function just before your jasmine test declaration.
 
 ## Node.js usage
 
-Install npm packet `jasmine-custom-message`, require it in your spec file, and execute returned function
+ --  Install npm packet `jasmine-custom-message`
 ```
-require('jasmine-custom-message')();
+npm install jasmine-custom-message --save-dev
+```
+ --  require it in your spec file
+```
+var initJasmineCustomMessage = require('jasmine-custom-message');
+```
+ --  execute returned function
+```
+initJasmineCustomMessage();
+```
+
+## Bower
+You can also install the bower package
+```
+bower install jasmine-custom-message
 ```
 
 ## Change log
 
 `v0.5.0` - 2014.01.15
   -- added support for nested message functions
+  
   -- dropped automatic wrapping of jasmine `it` and `expect` functions in browsers
+  
   -- added specs for Node.js
+  
   -- added specs for browsers
+  
   -- registered bower package
+  
   -- made disambiguation and readability improvements
 
 `v0.2.0` - 2014.01.10
+
   -- BROKEN COMPATIBILITY: custom messages is supplied as the third argument for jasmine `it` function
 
 `v0.1.0` - 2014.01.08 - the first functional version  
 
 
 ## Release plan
-
-`v0.3.0` - specs for browsers
-
-`v0.4.0` - specs for Node.js
-
-`v0.5.0` - bower package
 
 `v0.6.0` - some new features (based on requests from Issues)
