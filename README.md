@@ -1,5 +1,8 @@
 jasmine-custom-message
 ======================
+> **works with jasmine 1.3.1**
+
+
 
 This script makes it possible to use your own failure message on any jasmine assertion. It wraps jasmine `it` and `expect` functions. Wrapped `it` function accepts your custom failure messages as its third argument and saves it to the current jasmine `spec` object as `customMessages`. Wrapped `expect` function extracts a proper message from `customMessages` of the current jasmine `spec` object based on a sequential number of an assertion in the spec.
 
@@ -100,27 +103,34 @@ describe('test', function() {
 ```
 
 ## Front-end usage
-Include
+  * include `jasmine-custom-message.js` into your HTML file next to `jasmine` script  
 ```
+<script src="PATH-TO/jasmine.js"></script>
 <script src="PATH-TO/jasmine-custom-message.js"></script>
 ```
-into your HTML file next to `jasmine` script and execute
+
+  * execute `window.jasmine.initJasmineCustomMessage` function just before your jasmine test declaration.
 ```
 window.jasmine.initJasmineCustomMessage();
+describe('spec', function() {
+  // your spec code
+});
 ```
-function just before your jasmine test declaration.
+
 
 ## Node.js usage
 
- --  Install npm packet `jasmine-custom-message`
+ *  install npm packet `jasmine-custom-message`
 ```
 npm install jasmine-custom-message --save-dev
 ```
- --  require it in your spec file
+
+ *  require it in your spec file
 ```
 var initJasmineCustomMessage = require('jasmine-custom-message');
 ```
- --  execute returned function
+
+ *  execute returned function
 ```
 initJasmineCustomMessage();
 ```
@@ -134,23 +144,18 @@ bower install jasmine-custom-message
 ## Change log
 
 `v0.5.0` - 2014.01.15
-  -- added support for nested message functions
-  
-  -- dropped automatic wrapping of jasmine `it` and `expect` functions in browsers
-  
-  -- added specs for Node.js
-  
-  -- added specs for browsers
-  
-  -- registered bower package
-  
-  -- made disambiguation and readability improvements
+  * added support for nested message functions
+  * dropped automatic wrapping of jasmine `it` and `expect` functions in browsers
+  * added specs for Node.js
+  * added specs for browsers
+  * registered bower package
+  * made disambiguation and readability improvements
 
 `v0.2.0` - 2014.01.10
+  * BROKEN COMPATIBILITY: custom messages is supplied as the third argument for jasmine `it` function
 
-  -- BROKEN COMPATIBILITY: custom messages is supplied as the third argument for jasmine `it` function
-
-`v0.1.0` - 2014.01.08 - the first functional version  
+`v0.1.0` - 2014.01.08
+  * the first functional version  
 
 
 ## Release plan
