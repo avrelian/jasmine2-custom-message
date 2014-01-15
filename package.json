@@ -25,6 +25,18 @@
   "engines": {
     "node": ">= 0.8.0"
   },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt": "~0.4.2",
+    "grunt-jasmine-node": "~0.1.0",
+    "diff": "~1.0.8"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.2"
+  },
   "keywords": [
     "jasmine",
     "error message",

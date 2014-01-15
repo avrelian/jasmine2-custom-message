@@ -1,0 +1,26 @@
+.custom-message {
+  display: block;
+}
+
+.color-scheme {
+  margin-left: 20px;
+}
+
+.message-diff {
+  margin-left: 40px;
+  padding: 5px;
+  background: white;
+  font-size: 16px;
+}
+
+.color-addition {
+  color: #007632;
+}
+
+.color-deletion {
+  color: #9b0013;
+}
+
+.color-common {
+  color: gray;
+}
