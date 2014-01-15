@@ -1,6 +1,8 @@
 .jshintrc
 .npmignore
 .idea
+bower_components
 docs
 specs
 Gruntfile.js
+bower.json
