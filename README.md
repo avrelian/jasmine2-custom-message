@@ -8,11 +8,11 @@ This script makes it possible to use your own failure message on any jasmine ass
 ```
 describe('test', function() {
   it('should be ok', function() {
-    expect(3).toEqual(4); // => 'Custom message'
+    expect(3).toEqual(4); // => '3 =/= 4'
   }, {
     // 0 - sequential number of an assertion in the spec
-    0: function() {
-      return 'Custom message';
+    0: function(expected) {
+      return this.actual + ' =/= ' + expected;
     }
   });
 });
@@ -54,7 +54,7 @@ describe('test', function() {
 
 ## Lenient
 
-You can pass any primitive value instead of message function.
+You can pass any primitive value (except `null` and `undefined`) or an object instead of a message function.
 
 #### Example
 
@@ -69,7 +69,7 @@ describe('test', function() {
 });
 ```
 
-Or even a primitive value or function instead of the messages object if only one assertion is present in a given spec or if you are interested in only the first of the assertions.
+Or even a primitive value (except `null` and `undefined`) or a function instead of the messages object if only one assertion is present in a given spec or if you are interested in only the first of the assertions.
 
 #### Example
 
@@ -82,16 +82,32 @@ describe('test', function() {
 ```
 
 ## Front-end usage
-Include `<script src="PATH-TO/jasmine-custom-message.js"></script>` into your HTML file next to `jasmine` script.
+Include
+```
+<script src="PATH-TO/jasmine-custom-message.js"></script>
+```
+into your HTML file next to `jasmine` script and execute
+```
+window.jasmine.initJasmineCustomMessage();
+```
+function before your jasmine test declaration.
 
 ## Node.js usage
 
-Install npm packet `jasmine-custom-message`, require it in your spec file, and execute `init` function
+Install npm packet `jasmine-custom-message`, require it in your spec file, and execute returned function
 ```
-require('jasmine-custom-message').init();
+require('jasmine-custom-message')();
 ```
 
 ## Change log
+
+`v0.5.0` - 2014.01.15
+  -- added support for nested message functions
+  -- dropped automatic wrapping of jasmine `it` and `expect` functions in browsers
+  -- added specs for Node.js
+  -- added specs for browsers
+  -- registered bower package
+  -- made disambiguation and readability improvements
 
 `v0.2.0` - 2014.01.10
   -- BROKEN COMPATIBILITY: custom messages is supplied as the third argument for jasmine `it` function
