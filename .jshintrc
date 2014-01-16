@@ -15,7 +15,7 @@
   "globals": {
     "window": false,
     "document": false,
-    "jasmine": false,
+    "jasmineRequire": false,
     "describe": false,
     "it": false,
     "expect": false

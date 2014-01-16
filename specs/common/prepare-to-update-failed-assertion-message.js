@@ -1,6 +1,6 @@
 'use strict';
 
-(function(undefined) {
+(function() {
   var global = Function('return this')();
   var isBrowserEnv = global.window && global === global.window;
   var isCommonJS = typeof module !== 'undefined' && module.exports;
@@ -59,7 +59,6 @@
       }, '');
     };
 
-
     var createMessage = function(prompt, colorScheme, messagesDiff) {
       if (isBrowserEnv) {
         var el = document.createElement('div');
@@ -76,47 +75,43 @@
     assertion.message = createMessage('See diff of expected and actual message', colorScheme, messagesDiff());
   };
 
-  var updateSpec = function(spec) {
-    var results = spec.results();
-    var expectedMessage = spec.expectedMessages || [];
+  var reconsiderFailedExpectations = function(specResult, expectedMessages) {
+    specResult.failedExpectations = specResult.failedExpectations.filter(function(item) {
+      var expectedMessage = expectedMessages[item.assertionCount].toString();
 
-    if (!results.skipped && !results.passed()) {
-      results.getItems().forEach(function(assertion, index) {
-        if (assertion.message === expectedMessage[index]) {
-          assertion.passed_ = true;
+      if (item.message !== expectedMessage) {
+        updateMessage(item, expectedMessage);
+        return true;
+      }
 
-          results.passedCount++;
-          results.failedCount--;
-        } else {
-          updateMessage(assertion, expectedMessage[index]);
-        }
-      });
-
-    }
+      return false;
+    });
   };
 
-  var wrapReportSpecResults = function() {
-    var firstReporter = jasmine.getEnv().reporter.subReporters_[0];
-
-    if (!firstReporter.wrappedForCustomMessages) {
-      firstReporter.reportSpecResults = (function(reportSpecResults) {
-        var wrappedReportSpecResults = function(spec) {
-          updateSpec(spec);
-          reportSpecResults.apply(firstReporter, arguments);
+  // Since `failed` assertion with a proper custom message should be treated as `passed`,
+  // we should wrap `it` function before `jasmine-custom-message` do it.
+  var wrapIt = function() {
+    if (global.jasmine && global.it) {
+      global.it = (function(it) {
+        return function(desc, func) {
+          var newFunc = function() {
+            func.call(userContext);
+            reconsiderFailedExpectations(spec.result, userContext.expectedMessages);
+          };
+          var spec = it(desc, newFunc);
+          var userContext = {spec: spec};
+          return spec;
         };
-        wrappedReportSpecResults.wrappedForCustomMessages = true;
-        return wrappedReportSpecResults;
-      })(firstReporter.reportSpecResults);
+      })(global.it);
     }
   };
+
 
   if (isBrowserEnv) {
-    if (global.jasmine && global.jasmine.initJasmineCustomMessage) {
-      global.jasmine.initJasmineCustomMessage.wrapReporter = wrapReportSpecResults;
-    }
+    wrapIt();
   } else {
     if (isCommonJS) {
-      exports.wrap = wrapReportSpecResults;
+      module.exports = wrapIt();
     }
   }
 })();

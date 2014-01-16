@@ -75,8 +75,8 @@
                 expect(3).toEqual(2);
                 this.expectedMessages.push("2 bla-bla-bla 3");
               }, {
-                0: function(expected) {
-                  return expected + ' bla-bla-bla ' + this.actual;
+                0: function() {
+                  return this.expected + ' bla-bla-bla ' + this.actual;
                 }
               });
 
@@ -86,7 +86,7 @@
                 expect(3).toEqual(2);
                 this.expectedMessages.push(5);
               }, {
-                0: function(expected) {
+                0: function() {
                   return 5;
                 }
               });
@@ -97,7 +97,7 @@
                 expect(3).toEqual(2);
                 this.expectedMessages.push(false);
               }, {
-                0: function(expected) {
+                0: function() {
                   return false;
                 }
               });
@@ -111,9 +111,9 @@
                   expect(3).toEqual(2);
                   this.expectedMessages.push("2 bla-bla-bla 3");
                 }, {
-                  0: function(expected) {
+                  0: function() {
                     return function() {
-                      return expected + ' bla-bla-bla ' + this.actual;
+                      return this.expected + ' bla-bla-bla ' + this.actual;
                     };
                   }
                 });
@@ -124,7 +124,7 @@
                   expect(3).toEqual(2);
                   this.expectedMessages.push(5);
                 }, {
-                  0: function(expected) {
+                  0: function() {
                     return function() {
                       return 5;
                     };
@@ -137,7 +137,7 @@
                   expect(3).toEqual(2);
                   this.expectedMessages.push(false);
                 }, {
-                  0: function(expected) {
+                  0: function() {
                     return function() {
                       return false;
                     };
@@ -150,7 +150,7 @@
                   expect(3).toEqual(2);
                   this.expectedMessages.push('{"someProp":"someVal"}');
                 }, {
-                  0: function(expected) {
+                  0: function() {
                     return function() {
                       return {someProp: 'someVal'};
                     };
@@ -164,9 +164,7 @@
 
             describe('object', function() {
 
-              var someObj = {
-                someProp: 'someVal'
-              };
+              var someObj = {someProp: 'someVal'};
 
               it('without overridden toString method', function() {
                 this.expectedMessages = [];
@@ -231,8 +229,8 @@
 
               expect(3).toEqual(2);
               this.expectedMessages.push("2 bla-bla-bla 3");
-            }, function(expected) {
-              return expected + ' bla-bla-bla ' + this.actual;
+            }, function() {
+              return this.expected + ' bla-bla-bla ' + this.actual;
             });
 
             it('string', function() {
@@ -273,11 +271,11 @@
             expect(4).toEqual(5);
             this.expectedMessages.push("5 foo-bar-baz 4");
           }, {
-            0: function(expected) {
-              return expected + ' bla-bla-bla ' + this.actual;
+            0: function() {
+              return this.expected + ' bla-bla-bla ' + this.actual;
             },
-            1: function(expected) {
-              return expected + ' foo-bar-baz ' + this.actual;
+            1: function() {
+              return this.expected + ' foo-bar-baz ' + this.actual;
             }
           });
 
@@ -290,8 +288,8 @@
             expect(4).toEqual(5);
             this.expectedMessages.push("5 foo-bar-baz 4");
           }, {
-            1: function(expected) {
-              return expected + ' foo-bar-baz ' + this.actual;
+            1: function() {
+              return this.expected + ' foo-bar-baz ' + this.actual;
             }
           });
 
@@ -347,7 +345,7 @@
                 expect(3).toEqual(2);
                 this.expectedMessages.push("You cannot use `null` as a custom message");
               }, {
-                0: function(expected) {
+                0: function() {
                   return null;
                 }
               });
@@ -358,7 +356,7 @@
                 expect(3).toEqual(2);
                 this.expectedMessages.push("You cannot use `undefined` as a custom message");
               }, {
-                0: function(expected) {
+                0: function() {
                   return undefined;
                 }
               });
@@ -368,9 +366,7 @@
 
             describe('object', function() {
 
-              var someObj = {
-                someProp: 'someVal'
-              };
+              var someObj = {someProp: 'someVal'};
 
               it('directly', function() {
                 this.expectedMessages = [];
@@ -392,12 +388,10 @@
   };
 
   if (isBrowserEnv) {
-    if (global.jasmine && global.jasmine.initJasmineCustomMessage) {
-      global.jasmine.initJasmineCustomMessage.testJasmineCustomMessage = test;
-    }
+    test();
   } else {
     if (isCommonJS) {
-      exports.test = test;
+      module.exports = test();
     }
   }
 })();
