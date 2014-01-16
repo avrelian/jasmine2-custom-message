@@ -4,7 +4,7 @@ jasmine-custom-message
 
 
 
-This script makes it possible to use your own failure message on any jasmine assertion. It wraps jasmine `it` function so that it accepts your custom failure messages as its third argument. When one of your assertions fails it extracts a proper message from the custom messages object provided to wrapped `it` function based on a sequential number of an assertion in the spec.
+This script makes it possible to use your own failure message on any jasmine assertion. It wraps jasmine `it` function so that it accepts your custom failure messages as its third argument. When one of your assertions fails it extracts a proper message from the custom messages object provided to the wrapped `it` function based on a sequential number of an assertion in the spec.
 
 #### Example
 
