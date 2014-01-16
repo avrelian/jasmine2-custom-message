@@ -1,10 +1,10 @@
 jasmine-custom-message
 ======================
-> **works with jasmine 1.3.1**
+> **works with jasmine 2.0.0**
 
 
 
-This script makes it possible to use your own failure message on any jasmine assertion. It wraps jasmine `it` and `expect` functions. Wrapped `it` function accepts your custom failure messages as its third argument and saves it to the current jasmine `spec` object as `customMessages`. Wrapped `expect` function extracts a proper message from `customMessages` of the current jasmine `spec` object based on a sequential number of an assertion in the spec.
+This script makes it possible to use your own failure message on any jasmine assertion. It wraps jasmine `it` function so that it accepts your custom failure messages as its third argument. When one of your assertions fails it extracts a proper message from the custom messages object provided to wrapped `it` function based on a sequential number of an assertion in the spec.
 
 #### Example
 
@@ -14,7 +14,7 @@ describe('test', function() {
     expect(3).toEqual(4); // => 'Custom message'
   }, {
     // 0 - sequential number of an assertion in the spec
-    0: function(expected) {
+    0: function() {
       return 'Custom message';
     }
   });
@@ -95,28 +95,23 @@ describe('test', function() {
   it('should be ok', function() {
     expect(3).toEqual(4); // => '3 =/= 4'
   }, {
-    0: function(expected) {
-      return this.actual + ' =/= ' + expected;
+    0: function() {
+      return this.actual + ' =/= ' + this.expected;
     }
   });
 });
 ```
 
 ## Front-end usage
-  * include `jasmine-custom-message.js` into your HTML file next to `jasmine` script  
+ *  install npm packet `jasmine-custom-message`
+```
+bower install jasmine-custom-message --save-dev
+```
+  * include `jasmine-custom-message.js` into your HTML file next to `jasmine` script
 ```
 <script src="PATH-TO/jasmine.js"></script>
 <script src="PATH-TO/jasmine-custom-message.js"></script>
 ```
-
-  * execute `window.jasmine.initJasmineCustomMessage` function just before your jasmine test declaration.
-```
-window.jasmine.initJasmineCustomMessage();
-describe('spec', function() {
-  // your spec code
-});
-```
-
 
 ## Node.js usage
 
@@ -125,20 +120,9 @@ describe('spec', function() {
 npm install jasmine-custom-message --save-dev
 ```
 
- *  require it in your spec file
+ *  require it in your spec file before your tests
 ```
-var initJasmineCustomMessage = require('jasmine-custom-message');
-```
-
- *  execute returned function
-```
-initJasmineCustomMessage();
-```
-
-## Bower
-You can also install the bower package
-```
-bower install jasmine-custom-message
+require('jasmine-custom-message');
 ```
 
 ## Change log
