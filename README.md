@@ -1,6 +1,6 @@
 jasmine-custom-message
 ======================
-> **works with jasmine 2.0.0**
+> **works with jasmine 2.0.0** (for work with `jasmine` `v1.3.1` see [master](https://github.com/avrelian/jasmine-custom-message) branch)
 
 
 
@@ -103,9 +103,9 @@ describe('test', function() {
 ```
 
 ## Front-end usage
- *  install npm packet `jasmine-custom-message`
+ *  install the bower package from github
 ```
-bower install jasmine-custom-message --save-dev
+bower install jasmine-custom-message#675901536988833030878928a180c9d3ebe88361 --save-dev
 ```
   * include `jasmine-custom-message.js` into your HTML file next to `jasmine` script
 ```
@@ -115,9 +115,9 @@ bower install jasmine-custom-message --save-dev
 
 ## Node.js usage
 
- *  install npm packet `jasmine-custom-message`
+ *  install the bower package from github
 ```
-npm install jasmine-custom-message --save-dev
+bower install jasmine-custom-message#675901536988833030878928a180c9d3ebe88361 --save-dev
 ```
 
  *  require it in your spec file before your tests
