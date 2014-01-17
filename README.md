@@ -1,49 +1,43 @@
 jasmine-custom-message
 ======================
-> **works with jasmine 2.0.0** (for work with `jasmine` `v1.3.1` see [master](https://github.com/avrelian/jasmine-custom-message) branch)
+> **works with `jasmine v2.0.0`** (for work with `jasmine v1.3.1` see [master](https://github.com/avrelian/jasmine-custom-message) branch)
 
 
-
-This script makes it possible to use your own failure message on any jasmine assertion. It wraps jasmine `it` function so that it accepts your custom failure messages as its third argument. When one of your assertions fails it extracts a proper message from the custom messages object provided to the wrapped `it` function based on a sequential number of an assertion in the spec.
-
-#### Example
-
-```
-describe('test', function() {
-  it('should be ok', function() {
-    expect(3).toEqual(4); // => 'Custom message'
-  }, {
-    // 0 - sequential number of an assertion in the spec
-    0: function() {
-      return 'Custom message';
-    }
-  });
-});
-```
-
-## Flexible
-
-Custom failure message for a given assertion will be used only if the third argument of `it` function has a property which name equals to a sequential number of the assertion.
+This script makes it possible to use your own failure message on any jasmine assertion.
 
 #### Example
 
 ```
 describe('test', function() {
   it('should be ok', function() {
-    expect(3).toEqual(4); // => ordinary jasmine message
-    expect(3).toEqual(4); // => 'Custom message'
-  }, {
-    // property '0' is missing
-    1: function() {
-      return 'Custom message';
-    }
+    since('all cats are grey').
+    expect(3).toEqual(4); // => 'all cats are grey'
   });
 });
 ```
+
+
+## Simple
+
+All the magic happens in `since` function. That returns an object with a property `expect`. That contains no more than a wrapped jasmine `expect` function. That returns jasmine `expectation` object with a wrapped `addExpectationResult` function. That can replace an ordinary jasmine failure message with a newly generated one. That is generating based on a custom message you have supplied to `since` function as the first argument. That can be a primitive (except `null` and `undefined`), a function, or any other object. That is it.
+
+#### Example
+
+```
+describe('test', function() {
+  it('should be ok', function() {
+    since(function() {
+      return {'all': 'cats are grey'};
+    }).
+    expect(3).toEqual(4); // => '{"all":"cats are grey"}'
+  });
+});
+```
+
 
 ## Unobtrusive
 
-You can use jasmine as you did before.
+You can use jasmine as you did before, since `jasmine-custom-message` does not replace global jasmine `expect` function.
 
 #### Example
 
@@ -55,34 +49,6 @@ describe('test', function() {
 });
 ```
 
-## Lenient
-
-You can pass any primitive value (except `null` and `undefined`) or an object instead of a message function.
-
-#### Example
-
-```
-describe('test', function() {
-  it('should be ok', function() {
-    expect(3).toEqual(4); // => ordinary jasmine message
-    expect(3).toEqual(4); // => 'Custom message'
-  }, {
-    1: 'Custom message'
-  });
-});
-```
-
-Or even a primitive value (except `null` and `undefined`) or a function instead of the messages object if only one assertion is present in a given spec or if you are interested in only the first of the assertions.
-
-#### Example
-
-```
-describe('test', function() {
-  it('should be ok', function() {
-    expect(3).toEqual(4); // => 'Custom message'
-  }, 'Custom message');
-});
-```
 
 ## Powerful
 
@@ -93,21 +59,20 @@ You can use expected and actual value of the assertion in your custom message.
 ```
 describe('test', function() {
   it('should be ok', function() {
-    expect(3).toEqual(4); // => '3 =/= 4'
-  }, {
-    0: function() {
+    since(function() {
       return this.actual + ' =/= ' + this.expected;
-    }
+    }).
+    expect(3).toEqual(4); // => '3 =/= 4'
   });
 });
 ```
 
 ## Front-end usage
- *  install the bower package from github
+*  install the bower package from github
 ```
 bower install jasmine-custom-message#675901536988833030878928a180c9d3ebe88361 --save-dev
 ```
-  * include `jasmine-custom-message.js` into your HTML file next to `jasmine` script
+* include `jasmine-custom-message.js` into your HTML file next to `jasmine` script
 ```
 <script src="PATH-TO/jasmine.js"></script>
 <script src="PATH-TO/jasmine-custom-message.js"></script>
@@ -115,12 +80,12 @@ bower install jasmine-custom-message#675901536988833030878928a180c9d3ebe88361 --
 
 ## Node.js usage
 
- *  install the bower package from github
+*  install the bower package from github
 ```
 bower install jasmine-custom-message#675901536988833030878928a180c9d3ebe88361 --save-dev
 ```
 
- *  require it in your spec file before your tests
+*  require it in your spec file before your tests
 ```
 require('jasmine-custom-message');
 ```
