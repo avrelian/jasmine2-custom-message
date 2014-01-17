@@ -70,7 +70,7 @@ describe('test', function() {
 ## Front-end usage
 *  install the bower package from github
 ```
-bower install jasmine-custom-message#675901536988833030878928a180c9d3ebe88361 --save-dev
+bower install jasmine-custom-message#42305a6991122a6fc78d2e30ac24b00004e5a4ba --save-dev
 ```
 * include `jasmine-custom-message.js` into your HTML file next to `jasmine` script
 ```
@@ -82,7 +82,7 @@ bower install jasmine-custom-message#675901536988833030878928a180c9d3ebe88361 --
 
 *  install the bower package from github
 ```
-bower install jasmine-custom-message#675901536988833030878928a180c9d3ebe88361 --save-dev
+bower install jasmine-custom-message#42305a6991122a6fc78d2e30ac24b00004e5a4ba --save-dev
 ```
 
 *  require it in your spec file before your tests
