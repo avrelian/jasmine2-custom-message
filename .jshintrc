@@ -15,9 +15,10 @@
   "globals": {
     "window": false,
     "document": false,
-    "jasmineRequire": false,
     "describe": false,
     "it": false,
-    "expect": false
+    "expect": false,
+    "expectMessageToEqual": false,
+    "since": false
   }
 }

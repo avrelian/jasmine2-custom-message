@@ -5,6 +5,9 @@
   var isBrowserEnv = global.window && global === global.window;
   var isCommonJS = typeof module !== 'undefined' && module.exports;
 
+//  var expectMessageToEqual = global.expectMessageToEqual;
+//  var since = global.since;
+
   var test = function() {
 
     describe('jasmine with jasmine-custom-message', function () {
@@ -12,23 +15,19 @@
       describe('should work as it did before', function() {
 
         it('with one assertion', function() {
-          this.expectedMessages = [];
-
+          expectMessageToEqual("Expected 3 to equal 2.").
           expect(3).toEqual(2);
-          this.expectedMessages.push("Expected 3 to equal 2.");
         });
 
         it('with number of assertions', function() {
-          this.expectedMessages = [];
-
+          expectMessageToEqual("Expected 3 to equal 2.").
           expect(3).toEqual(2);
-          this.expectedMessages.push("Expected 3 to equal 2.");
 
+          expectMessageToEqual("Expected 3 to equal 2.").
           expect(3).toEqual(2);
-          this.expectedMessages.push("Expected 3 to equal 2.");
 
+          expectMessageToEqual("Expected 3 to equal 2.").
           expect(3).toEqual(2);
-          this.expectedMessages.push("Expected 3 to equal 2.");
         });
 
       });
@@ -37,124 +36,94 @@
 
         describe('custom failure message when it is supplied', function() {
 
-          describe('with an object containing a', function() {
+          describe('with a', function() {
 
             it('string', function() {
-              this.expectedMessages = [];
-
+              expectMessageToEqual("bla-bla-bla").
+              since('bla-bla-bla').
               expect(3).toEqual(2);
-              this.expectedMessages.push("bla-bla-bla");
-            }, {
-              0: 'bla-bla-bla'
             });
 
             it('number', function() {
-              this.expectedMessages = [];
-
+              expectMessageToEqual(5).
+              since(5).
               expect(3).toEqual(2);
-              this.expectedMessages.push(5);
-            }, {
-              0: 5
             });
 
             it('boolean', function() {
-              this.expectedMessages = [];
-
+              expectMessageToEqual(false).
+              since(false).
               expect(3).toEqual(2);
-              this.expectedMessages.push(false);
-            }, {
-              0: false
             });
 
 
             describe('function returning a', function() {
 
               it('string', function() {
-                this.expectedMessages = [];
-
-                expect(3).toEqual(2);
-                this.expectedMessages.push("2 bla-bla-bla 3");
-              }, {
-                0: function() {
+                expectMessageToEqual("2 bla-bla-bla 3").
+                since(function() {
                   return this.expected + ' bla-bla-bla ' + this.actual;
-                }
+                }).
+                expect(3).toEqual(2);
               });
 
               it('number', function() {
-                this.expectedMessages = [];
-
-                expect(3).toEqual(2);
-                this.expectedMessages.push(5);
-              }, {
-                0: function() {
+                expectMessageToEqual(5).
+                since(function() {
                   return 5;
-                }
+                }).
+                expect(3).toEqual(2);
               });
 
               it('boolean', function() {
-                this.expectedMessages = [];
-
-                expect(3).toEqual(2);
-                this.expectedMessages.push(false);
-              }, {
-                0: function() {
+                expectMessageToEqual(false).
+                since(function() {
                   return false;
-                }
+                }).
+                expect(3).toEqual(2);
               });
 
 
               describe('another function returning a', function() {
 
                 it('string', function() {
-                  this.expectedMessages = [];
-
-                  expect(3).toEqual(2);
-                  this.expectedMessages.push("2 bla-bla-bla 3");
-                }, {
-                  0: function() {
+                  expectMessageToEqual("2 bla-bla-bla 3").
+                  since(function() {
                     return function() {
                       return this.expected + ' bla-bla-bla ' + this.actual;
                     };
-                  }
+                  }).
+                  expect(3).toEqual(2);
                 });
 
                 it('number', function() {
-                  this.expectedMessages = [];
-
-                  expect(3).toEqual(2);
-                  this.expectedMessages.push(5);
-                }, {
-                  0: function() {
+                  expectMessageToEqual(5).
+                  since(function() {
                     return function() {
                       return 5;
                     };
-                  }
+                  }).
+                  expect(3).toEqual(2);
                 });
 
                 it('boolean', function() {
-                  this.expectedMessages = [];
-
-                  expect(3).toEqual(2);
-                  this.expectedMessages.push(false);
-                }, {
-                  0: function() {
+                  expectMessageToEqual(false).
+                  since(function() {
                     return function() {
                       return false;
                     };
-                  }
+                  }).
+                  expect(3).toEqual(2);
                 });
 
                 it('an object', function() {
-                  this.expectedMessages = [];
-
-                  expect(3).toEqual(2);
-                  this.expectedMessages.push('{"someProp":"someVal"}');
-                }, {
-                  0: function() {
+                  expectMessageToEqual('{"someProp":"someVal"}').
+                  since(function() {
                     return function() {
                       return {someProp: 'someVal'};
                     };
-                  }
+                  }).
+                  expect(3).toEqual(2);
                 });
 
               });
@@ -167,12 +136,9 @@
               var someObj = {someProp: 'someVal'};
 
               it('without overridden toString method', function() {
-                this.expectedMessages = [];
-
+                expectMessageToEqual('{"someProp":"someVal"}').
+                since(someObj).
                 expect(3).toEqual(2);
-                this.expectedMessages.push('{"someProp":"someVal"}');
-              }, {
-                0: someObj
               });
 
               it('with overridden toString method', function() {
@@ -180,12 +146,9 @@
                   return 'object bla-bla-bla';
                 };
 
-                this.expectedMessages = [];
-
+                expectMessageToEqual("object bla-bla-bla").
+                since(someObj).
                 expect(3).toEqual(2);
-                this.expectedMessages.push("object bla-bla-bla");
-              }, {
-                0: someObj
               });
 
             });
@@ -196,12 +159,9 @@
               var someArr = ['some', 'item'];
 
               it('without overridden toString method', function() {
-                this.expectedMessages = [];
-
+                expectMessageToEqual('some,item').
+                since(someArr).
                 expect(3).toEqual(2);
-                this.expectedMessages.push('some,item');
-              }, {
-                0: someArr
               });
 
               it('with overridden toString method', function() {
@@ -209,51 +169,12 @@
                   return 'array bla-bla-bla';
                 };
 
-                this.expectedMessages = [];
-
+                expectMessageToEqual("array bla-bla-bla").
+                since(someArr).
                 expect(3).toEqual(2);
-                this.expectedMessages.push("array bla-bla-bla");
-              }, {
-                0: someArr
               });
 
             });
-
-          });
-
-
-          describe('with a', function() {
-
-            it('function', function() {
-              this.expectedMessages = [];
-
-              expect(3).toEqual(2);
-              this.expectedMessages.push("2 bla-bla-bla 3");
-            }, function() {
-              return this.expected + ' bla-bla-bla ' + this.actual;
-            });
-
-            it('string', function() {
-              this.expectedMessages = [];
-
-              expect(3).toEqual(2);
-              this.expectedMessages.push("bla-bla-bla");
-            }, 'bla-bla-bla');
-
-
-            it('number', function() {
-              this.expectedMessages = [];
-
-              expect(3).toEqual(2);
-              this.expectedMessages.push(5);
-            }, 5);
-
-            it('boolean', function() {
-              this.expectedMessages = [];
-
-              expect(3).toEqual(2);
-              this.expectedMessages.push(false);
-            }, false);
 
           });
 
@@ -263,34 +184,28 @@
         describe('custom failure messages for', function() {
 
           it('all assertions', function() {
-            this.expectedMessages = [];
-
-            expect(3).toEqual(2);
-            this.expectedMessages.push("2 bla-bla-bla 3");
-
-            expect(4).toEqual(5);
-            this.expectedMessages.push("5 foo-bar-baz 4");
-          }, {
-            0: function() {
+            expectMessageToEqual("2 bla-bla-bla 3").
+            since(function() {
               return this.expected + ' bla-bla-bla ' + this.actual;
-            },
-            1: function() {
+            }).
+            expect(3).toEqual(2);
+
+            expectMessageToEqual("5 foo-bar-baz 4").
+            since(function() {
               return this.expected + ' foo-bar-baz ' + this.actual;
-            }
+            }).
+            expect(4).toEqual(5);
           });
 
           it('some of the assertions', function() {
-            this.expectedMessages = [];
-
+            expectMessageToEqual("Expected 3 to equal 2.").
             expect(3).toEqual(2);
-            this.expectedMessages.push("Expected 3 to equal 2.");
 
-            expect(4).toEqual(5);
-            this.expectedMessages.push("5 foo-bar-baz 4");
-          }, {
-            1: function() {
+            expectMessageToEqual("5 foo-bar-baz 4").
+            since(function() {
               return this.expected + ' foo-bar-baz ' + this.actual;
-            }
+            }).
+            expect(4).toEqual(5);
           });
 
         });
@@ -301,79 +216,38 @@
 
         describe('custom failure message when it is supplied', function() {
 
-          describe('with an object containing', function() {
-
-            it('null', function() {
-              this.expectedMessages = [];
-
-              expect(3).toEqual(2);
-              this.expectedMessages.push("Expected 3 to equal 2.");
-            }, null);
-
-            it('undefined', function() {
-              this.expectedMessages = [];
-
-              expect(3).toEqual(2);
-              this.expectedMessages.push("Expected 3 to equal 2.");
-            }, undefined);
-
-          });
-
-
           describe('with', function() {
 
             it('null', function() {
-              this.expectedMessages = [];
-
+              expectMessageToEqual("Expected 3 to equal 2.").
+              since(null).
               expect(3).toEqual(2);
-              this.expectedMessages.push("Expected 3 to equal 2.");
-            }, null);
+            });
 
             it('undefined', function() {
-              this.expectedMessages = [];
-
+              expectMessageToEqual("Expected 3 to equal 2.").
+              since(undefined).
               expect(3).toEqual(2);
-              this.expectedMessages.push("Expected 3 to equal 2.");
-            }, undefined);
-
-
-            describe('function', function() {
-
-              it('returning null', function() {
-                this.expectedMessages = [];
-
-                expect(3).toEqual(2);
-                this.expectedMessages.push("You cannot use `null` as a custom message");
-              }, {
-                0: function() {
-                  return null;
-                }
-              });
-
-              it('returning undefined', function() {
-                this.expectedMessages = [];
-
-                expect(3).toEqual(2);
-                this.expectedMessages.push("You cannot use `undefined` as a custom message");
-              }, {
-                0: function() {
-                  return undefined;
-                }
-              });
-
             });
 
 
-            describe('object', function() {
+            describe('function returning', function() {
 
-              var someObj = {someProp: 'someVal'};
-
-              it('directly', function() {
-                this.expectedMessages = [];
-
+              it('null', function() {
+                expectMessageToEqual("Expected 3 to equal 2.").
+                since(function() {
+                  return null;
+                }).
                 expect(3).toEqual(2);
-                this.expectedMessages.push("Expected 3 to equal 2.");
-              }, someObj);
+              });
+
+              it('undefined', function() {
+                expectMessageToEqual("Expected 3 to equal 2.").
+                since(function() {
+                  return undefined;
+                }).
+                expect(3).toEqual(2);
+              });
 
             });
 

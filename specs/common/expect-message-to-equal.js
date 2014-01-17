@@ -2,6 +2,10 @@
 
 (function() {
   var global = Function('return this')();
+  if(! (global.jasmine && global.expect)) {
+    return;
+  }
+
   var isBrowserEnv = global.window && global === global.window;
   var isCommonJS = typeof module !== 'undefined' && module.exports;
 
@@ -15,9 +19,9 @@
   }
 
 
-  var updateMessage = function(assertion, expectedMessage) {
+  var getMessage = function(actualMessage, expectedMessage) {
+    actualMessage = actualMessage ? actualMessage.toString() : '';
     expectedMessage = expectedMessage ? expectedMessage.toString() : '';
-    var actualMessage = assertion.message.toString();
 
     var colorize = function(value, color) {
       if (value.value) {
@@ -72,46 +76,71 @@
       return prompt + ' ' + colorScheme + ':\n\t' + messagesDiff;
     };
 
-    assertion.message = createMessage('See diff of expected and actual message', colorScheme, messagesDiff());
+    return createMessage('See diff of expected and actual message', colorScheme, messagesDiff());
   };
 
-  var reconsiderFailedExpectations = function(specResult, expectedMessages) {
-    specResult.failedExpectations = specResult.failedExpectations.filter(function(item) {
-      var expectedMessage = expectedMessages[item.assertionCount].toString();
+  var wrapAddExpectationResult = function(assertion) {
+    assertion.addExpectationResult = (function(addExpectationResult) {
+      return function(passed, data) {
+        if (data.message === assertion.expectedMessage) {
+          passed = true;
+          data.passed = true;
+          delete data.message;
+        } else {
+          data.message = getMessage(data.message, assertion.expectedMessage);
+        }
 
-      if (item.message !== expectedMessage) {
-        updateMessage(item, expectedMessage);
-        return true;
-      }
-
-      return false;
-    });
+        addExpectationResult(passed, data);
+      };
+    })(assertion.addExpectationResult);
   };
 
-  // Since `failed` assertion with a proper custom message should be treated as `passed`,
-  // we should wrap `it` function before `jasmine-custom-message` do it.
-  var wrapIt = function() {
-    if (global.jasmine && global.it) {
-      global.it = (function(it) {
-        return function(desc, func) {
-          var newFunc = function() {
-            func.call(userContext);
-            reconsiderFailedExpectations(spec.result, userContext.expectedMessages);
-          };
-          var spec = it(desc, newFunc);
-          var userContext = {spec: spec};
-          return spec;
-        };
-      })(global.it);
-    }
+  var wrapGlobalExpect = function() {
+    global.expect = (function(expect) {
+      return function(actual) {
+        var assertion = expect(actual);
+        wrapAddExpectationResult(assertion);
+        return assertion;
+      };
+    })(global.expect);
+  };
+
+  var wrapExpect = function(expect, expectedMessage) {
+    return function(actual) {
+      var assertion = expect(actual);
+      assertion.expectedMessage = expectedMessage.toString();
+      return assertion;
+    };
+  };
+
+  var wrapSince = function(since, expectedMessage) {
+    return function(customMessage) {
+      var sinceObj = since(customMessage);
+      sinceObj.expect = wrapExpect(sinceObj.expect, expectedMessage);
+      return sinceObj;
+    };
+  };
+
+  var defineExpectMessageToEqual = function() {
+    global.expectMessageToEqual = function(expectedMessage) {
+      return {
+        since: wrapSince(global.since, expectedMessage),
+        expect: wrapExpect(global.expect, expectedMessage)
+      };
+    };
+  };
+
+  var init = function() {
+    wrapGlobalExpect();
+    defineExpectMessageToEqual();
   };
 
 
   if (isBrowserEnv) {
-    wrapIt();
+    init();
   } else {
     if (isCommonJS) {
-      module.exports = wrapIt();
+      module.exports = init();
     }
   }
 })();

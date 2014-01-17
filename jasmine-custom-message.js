@@ -10,8 +10,13 @@
 
 (function() {
   var global = Function('return this')();
+  if (! (global.jasmine && global.expect)) {
+    return;
+  }
+
   var isBrowserEnv = global.window && global === global.window;
   var isCommonJS = typeof module !== 'undefined' && module.exports;
+
 
   var ofType = function(val) {
     var types = [].slice.call(arguments, 1);
@@ -23,7 +28,7 @@
     while (! ofType(message, 'string', 'number', 'boolean')) {
       switch (true) {
         case ofType(message, 'undefined', 'null'):
-          message = 'You cannot use `' + message + '` as a custom message';
+          message = data.message || 'You cannot use `' + message + '` as a custom message';
           break;
         case ofType(message, 'function'):
           message = message.call(data);
@@ -42,47 +47,34 @@
     return message.toString();
   };
 
-  var wrapAddExpectationResult = function(spec, customMessages, assertionCount) {
-    spec.addExpectationResult = (function(addExpectationResult) {
-      return function(passed, data) {
-        data.assertionCount = assertionCount;
-
-        if (! passed && customMessages && ! ofType(customMessages[assertionCount], 'null', 'undefined') ) {
-          data.message = getMessage(data, customMessages[assertionCount]);
-        }
-
-        assertionCount++;
-
-        addExpectationResult.call(spec, passed, data);
-      };
-    })(spec.addExpectationResult);
+  var wrapAddExpectationResult = function(addExpectationResult, customMessage) {
+    return function(passed, data) {
+      data.message = getMessage(data, customMessage);
+      addExpectationResult(passed, data);
+    };
   };
 
-  var wrapIt = function() {
-    if (global.jasmine && global.it) {
-      global.it = (function(it) {
-        return function(desc, func, customMessages) {
-          var
-            assertionCount = 0,
-            spec = it(desc, func);
+  var wrapExpect = function(expect, customMessage) {
+    return function(actual) {
+      var assertion = expect(actual);
+      assertion.addExpectationResult = wrapAddExpectationResult(assertion.addExpectationResult, customMessage);
+      return assertion;
+    };
+  };
 
-          if (ofType(customMessages, 'function', 'string', 'number', 'boolean')) {
-            customMessages = {0: customMessages};
-          }
-
-          wrapAddExpectationResult(spec, customMessages, assertionCount);
-
-          return spec;
-        };
-      })(global.it);
-    }
+  var defineSince = function() {
+    global.since = function(customMessage) {
+      return {
+        expect: wrapExpect(global.expect, customMessage)
+      };
+    };
   };
 
   if (isBrowserEnv) {
-    wrapIt();
+    defineSince();
   } else {
     if (isCommonJS) {
-      module.exports = wrapIt();
+      module.exports = defineSince();
     }
   }
 })();
