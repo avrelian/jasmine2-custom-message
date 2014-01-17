@@ -145,3 +145,6 @@ require('jasmine-custom-message');
 ## Release plan
 
 `v0.6.0` - some new features (based on requests from Issues)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/avrelian/jasmine-custom-message/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
