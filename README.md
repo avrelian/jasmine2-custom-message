@@ -8,10 +8,10 @@ This script makes it possible to use your own failure message on any jasmine ass
 #### Example
 
 ```
-describe('test', function() {
-  it('should be ok', function() {
-    since('all cats are grey').
-    expect(3).toEqual(4); // => 'all cats are grey'
+describe('the story', function() {
+  it('should finish ok', function() {
+    since('all cats are grey in the dark').
+    expect('tiger').toEqual('kitty'); // => 'all cats are grey in the dark'
   });
 });
 ```
@@ -27,9 +27,9 @@ All the magic happens in `since` function. That returns an object with a propert
 describe('test', function() {
   it('should be ok', function() {
     since(function() {
-      return {'all': 'cats are grey'};
+      return {'tiger': 'kitty'};
     }).
-    expect(3).toEqual(4); // => '{"all":"cats are grey"}'
+    expect(3).toEqual(4); // => '{"tiger":"kitty"}'
   });
 });
 ```
