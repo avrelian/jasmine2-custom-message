@@ -1,7 +1,7 @@
 {
   "name": "jasmine-custom-message",
   "description": "custom failure message on any jasmine assertion",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "homepage": "https://github.com/avrelian/jasmine-custom-message",
   "author": {
     "name": "Sergey Radchenko",
