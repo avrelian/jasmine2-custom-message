@@ -70,7 +70,7 @@ describe('test', function() {
 ## Front-end usage
 *  install the bower package from github
 ```
-bower install jasmine-custom-message#84d88c976fb5364ce9649bc8cc79da78d67bed01 --save-dev
+bower install jasmine-custom-message#61004b01fca2c46e3fdcfa93aaed8f547c049938 --save-dev
 ```
 * include `jasmine-custom-message.js` into your HTML file next to `jasmine` script
 ```
@@ -82,7 +82,7 @@ bower install jasmine-custom-message#84d88c976fb5364ce9649bc8cc79da78d67bed01 --
 
 *  install the bower package from github
 ```
-bower install jasmine-custom-message#84d88c976fb5364ce9649bc8cc79da78d67bed01 --save-dev
+bower install jasmine-custom-message#61004b01fca2c46e3fdcfa93aaed8f547c049938 --save-dev
 ```
 
 *  require it in your spec file before your tests
@@ -91,6 +91,11 @@ require('jasmine-custom-message');
 ```
 
 ## Change log
+
+`v0.6.0` - 2014.01.18 - **BROKEN COMPATIBILITY!**
+  * all the magic moved into newly introduced `since` function
+  * restored automatic initiation of the script upon inclusion (browser) or require (Node.js)
+  * cleaned specs
 
 `v0.5.0` - 2014.01.15
   * added support for nested message functions
