@@ -5,8 +5,7 @@
   var isBrowserEnv = global.window && global === global.window;
   var isCommonJS = typeof module !== 'undefined' && module.exports;
 
-//  var expectMessageToEqual = global.expectMessageToEqual;
-//  var since = global.since;
+  var expectMessageToEqual = global.expectMessageToEqual;
 
   var test = function() {
 
@@ -28,6 +27,11 @@
 
           expectMessageToEqual("Expected 3 to equal 2.").
           expect(3).toEqual(2);
+        });
+
+        it('with inverse assertion', function() {
+          expectMessageToEqual("Expected 2 not to equal 2.").
+          expect(2).not.toEqual(2);
         });
 
       });
@@ -180,7 +184,6 @@
 
         });
 
-
         describe('custom failure messages for', function() {
 
           it('all assertions', function() {
@@ -206,6 +209,12 @@
               return this.expected + ' foo-bar-baz ' + this.actual;
             }).
             expect(4).toEqual(5);
+          });
+
+          it('inverse assertion', function() {
+            expectMessageToEqual("2 bla-bla-bla 2").
+            since("2 bla-bla-bla 2").
+            expect(2).not.toEqual(2);
           });
 
         });

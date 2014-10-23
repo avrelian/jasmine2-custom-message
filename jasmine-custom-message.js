@@ -57,7 +57,7 @@
   var wrapExpect = function(expect, customMessage) {
     return function(actual) {
       var assertion = expect(actual);
-      assertion.addExpectationResult = wrapAddExpectationResult(assertion.addExpectationResult, customMessage);
+      assertion.addExpectationResult = assertion.not.addExpectationResult = wrapAddExpectationResult(assertion.addExpectationResult, customMessage);
       return assertion;
     };
   };

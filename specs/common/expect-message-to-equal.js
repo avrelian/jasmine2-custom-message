@@ -80,7 +80,7 @@
   };
 
   var wrapAddExpectationResult = function(assertion) {
-    assertion.addExpectationResult = (function(addExpectationResult) {
+    assertion.addExpectationResult = assertion.not.addExpectationResult = (function(addExpectationResult) {
       return function(passed, data) {
         if (data.message === assertion.expectedMessage) {
           passed = true;
