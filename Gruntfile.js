@@ -27,7 +27,8 @@ module.exports = function(grunt) {
         options: {
           configFile: 'specs/protractor/conf.js',
           args: {
-            verbose: true
+            verbose: true,
+            includeStackTrace: false
           }
         }
       }
