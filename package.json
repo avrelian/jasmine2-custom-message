@@ -29,10 +29,12 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.6.0",
+    "diff": "~1.0.8",
+    "es5-shim": "~2.3.0",
     "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.6.0",
     "grunt-jasmine-node": "~0.1.0",
-    "diff": "~1.0.8"
+    "grunt-protractor-runner": "^2.0.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.2"
