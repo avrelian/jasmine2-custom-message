@@ -52,9 +52,12 @@ describe('test', function() {
 
 ## Powerful
 
-You can use expected and actual value of the assertion in your custom message.
+You can use expected and actual value of the assertion in your custom message, by:
 
-#### Example
+  * Passing a function, and using `this.actual` and `this.expected`
+  * Passing a string, and using `#{actual}` and `#{expected}`
+
+#### Example using a function
 
 ```
 describe('test', function() {
@@ -62,6 +65,17 @@ describe('test', function() {
     since(function() {
       return this.actual + ' =/= ' + this.expected;
     }).
+    expect(3).toEqual(4); // => '3 =/= 4'
+  });
+});
+```
+
+#### Example using a string
+
+```js
+describe('test', function() {
+  it('should be ok', function() {
+    since('#{actual} =/= #{expected}').
     expect(3).toEqual(4); // => '3 =/= 4'
   });
 });

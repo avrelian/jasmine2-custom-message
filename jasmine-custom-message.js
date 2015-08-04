@@ -24,7 +24,17 @@
     return types.indexOf(valType) > -1;
   };
 
+  var formatString = function(data, message) {
+    message = message.replace(/#\{actual\}/g, data.actual);
+    message = message.replace(/#\{expected\}/g, data.expected);
+    return message;
+  };
+
   var getMessage = function(data, message) {
+    if (ofType(message, 'string')) {
+      return formatString(data, message);
+    }
+
     while (! ofType(message, 'string', 'number', 'boolean')) {
       switch (true) {
         case ofType(message, 'undefined', 'null'):
