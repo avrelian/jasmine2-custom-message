@@ -42,10 +42,20 @@
 
           describe('with a', function() {
 
-            it('string', function() {
-              expectMessageToEqual("bla-bla-bla").
-              since('bla-bla-bla').
-              expect(3).toEqual(2);
+            describe('string', function() {
+
+              it('simply', function() {
+                expectMessageToEqual("bla-bla-bla").
+                  since('bla-bla-bla').
+                  expect(3).toEqual(2);
+              });
+
+              it('with #{actual} and #{expected} replacements', function() {
+                expectMessageToEqual("2 bla-bla-bla 3").
+                  since('#{expected} bla-bla-bla #{actual}').
+                  expect(3).toEqual(2);
+              });
+
             });
 
             it('number', function() {
