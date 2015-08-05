@@ -7,7 +7,7 @@
   }
 
   var isBrowserEnv = global.window && global === global.window;
-  var isCommonJS = typeof module != 'undefined' && typeof module.exports == 'object';
+  var isCommonJS = typeof module !== 'undefined' && typeof module.exports === 'object';
 
   var diff;
   if (isBrowserEnv) {
