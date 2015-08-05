@@ -96,7 +96,12 @@ bower install jasmine2-custom-message --save-dev
 
 *  install the bower package from github
 ```
-bower install jasmine2-custom-message --save-dev
+$ bower install jasmine2-custom-message --save-dev
+```
+
+or
+```
+$ npm install jasmine2-custom-message --save-dev
 ```
 
 *  require it in your spec file before your tests
