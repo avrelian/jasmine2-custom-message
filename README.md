@@ -106,6 +106,18 @@ require('jasmine-custom-message');
 
 ## Change log
 
+v0.8.0 - 2015.08.05
+
+  * implemented "format string" functionality: #{actual} and #{expected}
+  * configured `protractor` environment
+  * corrected displaying of colors in tests running through `protractor`
+  * updated specs
+
+v0.7.0 - 2014.10.23
+
+  * fixed issue with custom failure messages on inverse assertions
+  * updated specs
+
 `v0.6.0` - 2014.01.18 - **BROKEN COMPATIBILITY!**
   * all the magic moved into newly introduced `since` function
   * restored automatic initiation of the script upon inclusion (browser) or require (Node.js)
@@ -128,7 +140,5 @@ require('jasmine-custom-message');
 
 ## Release plan
 
-`v0.6.0` - some new features (based on requests from Issues)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/avrelian/jasmine-custom-message/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+Jasmine-2 version of the library is going to move into it's own [repository](https://github.com/avrelian/jasmine2-custom-message).
+No new releases for jasmine v2 will be shipped in the current branch.
