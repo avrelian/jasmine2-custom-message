@@ -1,6 +1,6 @@
-jasmine-custom-message
+jasmine2-custom-message
 ======================
-> **works with `jasmine v2.0.0`** (for work with `jasmine v1.3.1` see [master](https://github.com/avrelian/jasmine-custom-message) branch)
+> **works with `jasmine v2`** (for work with `jasmine v1.3` see [jasmine-custom-message](https://github.com/avrelian/jasmine-custom-message))
 
 
 This script makes it possible to use your own failure message on any jasmine assertion.
@@ -37,7 +37,7 @@ describe('test', function() {
 
 ## Unobtrusive
 
-You can use jasmine as you did before, since `jasmine-custom-message` does not replace global jasmine `expect` function.
+You can use jasmine as you did before, since `jasmine2-custom-message` does not replace global jasmine `expect` function.
 
 #### Example
 
@@ -84,24 +84,24 @@ describe('test', function() {
 ## Front-end usage
 *  install the bower package from github
 ```
-bower install jasmine-custom-message#61004b01fca2c46e3fdcfa93aaed8f547c049938 --save-dev
+bower install jasmine2-custom-message --save-dev
 ```
-* include `jasmine-custom-message.js` into your HTML file next to `jasmine` script
+* include `jasmine2-custom-message.js` into your HTML file next to `jasmine` script
 ```html
 <script src="PATH-TO/jasmine.js"></script>
-<script src="PATH-TO/jasmine-custom-message.js"></script>
+<script src="PATH-TO/jasmine2-custom-message.js"></script>
 ```
 
 ## Node.js usage
 
 *  install the bower package from github
 ```
-bower install jasmine-custom-message#61004b01fca2c46e3fdcfa93aaed8f547c049938 --save-dev
+bower install jasmine2-custom-message --save-dev
 ```
 
 *  require it in your spec file before your tests
 ```js
-require('jasmine-custom-message');
+require('jasmine2-custom-message');
 ```
 
 ## Change log
@@ -140,5 +140,4 @@ v0.7.0 - 2014.10.23
 
 ## Release plan
 
-Jasmine-2 version of the library is going to move into it's own [repository](https://github.com/avrelian/jasmine2-custom-message).
-No new releases for jasmine v2 will be shipped in the current branch.
+`v0.9.0` - some new features (based on requests from Issues)

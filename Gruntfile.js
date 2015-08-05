@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
     jshint: {
       all: [
-        'jasmine-custom-message.js',
+        'jasmine2-custom-message.js',
         'Gruntfile.js',
         'specs/**/*.js'
       ],

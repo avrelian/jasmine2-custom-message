@@ -1,6 +1,6 @@
 /*
- * jasmine-custom-message
- * https://github.com/avrelian/jasmine-custom-message
+ * jasmine2-custom-message
+ * https://github.com/avrelian/jasmine2-custom-message
  *
  * Copyright (c) 2014 Sergey Radchenko
  * Licensed under the MIT license.

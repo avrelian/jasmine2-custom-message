@@ -9,7 +9,7 @@
 
   var test = function() {
 
-    describe('jasmine with jasmine-custom-message', function () {
+    describe('jasmine with jasmine2-custom-message', function () {
 
       describe('should work as it did before', function() {
 
