@@ -7,7 +7,7 @@ This script makes it possible to use your own failure message on any jasmine ass
 
 #### Example
 
-```
+```js
 describe('the story', function() {
   it('should finish ok', function() {
     since('all cats are grey in the dark').
@@ -23,7 +23,7 @@ All the magic happens in `since` function. That returns an object with a propert
 
 #### Example
 
-```
+```js
 describe('test', function() {
   it('should be ok', function() {
     since(function() {
@@ -41,7 +41,7 @@ You can use jasmine as you did before, since `jasmine-custom-message` does not r
 
 #### Example
 
-```
+```js
 describe('test', function() {
   it('should be ok', function() {
     expect(3).toEqual(4); // => ordinary jasmine message
@@ -52,16 +52,30 @@ describe('test', function() {
 
 ## Powerful
 
-You can use expected and actual value of the assertion in your custom message.
+You can use expected and actual value of the assertion in your custom message, by:
 
-#### Example
+  * Passing a function, and using `this.actual` and `this.expected`
+  * Passing a string, and using `#{actual}` and `#{expected}`
 
-```
+#### Example using a function
+
+```js
 describe('test', function() {
   it('should be ok', function() {
     since(function() {
       return this.actual + ' =/= ' + this.expected;
     }).
+    expect(3).toEqual(4); // => '3 =/= 4'
+  });
+});
+```
+
+#### Example using a string
+
+```js
+describe('test', function() {
+  it('should be ok', function() {
+    since('#{actual} =/= #{expected}').
     expect(3).toEqual(4); // => '3 =/= 4'
   });
 });
@@ -73,7 +87,7 @@ describe('test', function() {
 bower install jasmine-custom-message#61004b01fca2c46e3fdcfa93aaed8f547c049938 --save-dev
 ```
 * include `jasmine-custom-message.js` into your HTML file next to `jasmine` script
-```
+```html
 <script src="PATH-TO/jasmine.js"></script>
 <script src="PATH-TO/jasmine-custom-message.js"></script>
 ```
@@ -86,7 +100,7 @@ bower install jasmine-custom-message#61004b01fca2c46e3fdcfa93aaed8f547c049938 --
 ```
 
 *  require it in your spec file before your tests
-```
+```js
 require('jasmine-custom-message');
 ```
 
