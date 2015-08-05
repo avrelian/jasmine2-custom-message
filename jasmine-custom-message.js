@@ -31,9 +31,6 @@
   };
 
   var getMessage = function(data, message) {
-    if (ofType(message, 'string')) {
-      return formatString(data, message);
-    }
 
     while (! ofType(message, 'string', 'number', 'boolean')) {
       switch (true) {
@@ -52,6 +49,10 @@
         default:
           message = 'N/A';
       }
+    }
+
+    if (ofType(message, 'string')) {
+      return formatString(data, message);
     }
 
     return message.toString();

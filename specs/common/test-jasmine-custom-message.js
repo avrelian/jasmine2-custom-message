@@ -44,13 +44,13 @@
 
             describe('string', function() {
 
-              it('simply', function() {
+              it('without replacements', function() {
                 expectMessageToEqual("bla-bla-bla").
                   since('bla-bla-bla').
                   expect(3).toEqual(2);
               });
 
-              it('with #{actual} and #{expected} replacements', function() {
+              it('containing #{actual} and #{expected} replacements', function() {
                 expectMessageToEqual("2 bla-bla-bla 3").
                   since('#{expected} bla-bla-bla #{actual}').
                   expect(3).toEqual(2);
@@ -73,12 +73,24 @@
 
             describe('function returning a', function() {
 
-              it('string', function() {
-                expectMessageToEqual("2 bla-bla-bla 3").
-                since(function() {
-                  return this.expected + ' bla-bla-bla ' + this.actual;
-                }).
-                expect(3).toEqual(2);
+              describe('string', function() {
+
+                it('concatenating with expected and actual properties', function() {
+                  expectMessageToEqual("2 bla-bla-bla 3").
+                    since(function() {
+                      return this.expected + ' bla-bla-bla ' + this.actual;
+                    }).
+                    expect(3).toEqual(2);
+                });
+
+                it('containing #{actual} and #{expected} replacements', function() {
+                  expectMessageToEqual("2 bla-bla-bla 3").
+                    since(function() {
+                      return '#{expected} bla-bla-bla #{actual}';
+                    }).
+                    expect(3).toEqual(2);
+                });
+
               });
 
               it('number', function() {
@@ -100,14 +112,28 @@
 
               describe('another function returning a', function() {
 
-                it('string', function() {
-                  expectMessageToEqual("2 bla-bla-bla 3").
-                  since(function() {
-                    return function() {
-                      return this.expected + ' bla-bla-bla ' + this.actual;
-                    };
-                  }).
-                  expect(3).toEqual(2);
+                describe('string', function() {
+
+                  it('concatenating with expected and actual properties', function() {
+                    expectMessageToEqual("2 bla-bla-bla 3").
+                      since(function() {
+                        return function() {
+                          return this.expected + ' bla-bla-bla ' + this.actual;
+                        };
+                      }).
+                      expect(3).toEqual(2);
+                  });
+
+                  it('containing #{actual} and #{expected} replacements', function() {
+                    expectMessageToEqual("2 bla-bla-bla 3").
+                      since(function() {
+                        return function() {
+                          return '#{expected} bla-bla-bla #{actual}';
+                        };
+                      }).
+                      expect(3).toEqual(2);
+                  });
+
                 });
 
                 it('number', function() {
@@ -155,14 +181,28 @@
                 expect(3).toEqual(2);
               });
 
-              it('with overridden toString method', function() {
-                someObj.toString = function() {
-                  return 'object bla-bla-bla';
-                };
+              describe('with overridden toString method', function() {
 
-                expectMessageToEqual("object bla-bla-bla").
-                since(someObj).
-                expect(3).toEqual(2);
+                it('without replacements', function() {
+                  someObj.toString = function() {
+                    return 'object bla-bla-bla';
+                  };
+
+                  expectMessageToEqual("object bla-bla-bla").
+                    since(someObj).
+                    expect(3).toEqual(2);
+                });
+
+                it('containing #{actual} and #{expected} replacements', function() {
+                  someObj.toString = function() {
+                    return '#{expected} bla-bla-bla #{actual}';
+                  };
+
+                  expectMessageToEqual("2 bla-bla-bla 3").
+                    since(someObj).
+                    expect(3).toEqual(2);
+                });
+
               });
 
             });
@@ -178,14 +218,28 @@
                 expect(3).toEqual(2);
               });
 
-              it('with overridden toString method', function() {
-                someArr.toString = function() {
-                  return 'array bla-bla-bla';
-                };
+              describe('with overridden toString method', function() {
 
-                expectMessageToEqual("array bla-bla-bla").
-                since(someArr).
-                expect(3).toEqual(2);
+                it('without replacements', function() {
+                  someArr.toString = function() {
+                    return 'array bla-bla-bla';
+                  };
+
+                  expectMessageToEqual("array bla-bla-bla").
+                    since(someArr).
+                    expect(3).toEqual(2);
+                });
+
+                it('containing #{actual} and #{expected} replacements', function() {
+                  someArr.toString = function() {
+                    return '#{expected} bla-bla-bla #{actual}';
+                  };
+
+                  expectMessageToEqual("2 bla-bla-bla 3").
+                    since(someArr).
+                    expect(3).toEqual(2);
+                });
+
               });
 
             });
