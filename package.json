@@ -36,9 +36,7 @@
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-jasmine-node": "~0.1.0",
     "grunt-protractor-runner": "^2.0.0",
-    "colors": "~1.1.2"
-  },
-  "peerDependencies": {
+    "colors": "~1.1.2",
     "grunt": "~0.4.2"
   },
   "keywords": [
