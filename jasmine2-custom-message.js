@@ -74,7 +74,7 @@
   };
 
   var defineSince = function() {
-    global.since = function(customMessage) {
+    return global.since = function(customMessage) {
       return {
         expect: wrapExpect(global.expect, customMessage)
       };

@@ -108,6 +108,10 @@ $ npm install jasmine2-custom-message --save-dev
 ```js
 require('jasmine2-custom-message');
 ```
+* or be explicit in any functional scope
+```js
+var since = require('jasmine2-custom-message');
+```
 
 ## Change log
 
