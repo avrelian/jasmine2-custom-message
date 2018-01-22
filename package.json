@@ -43,5 +43,6 @@
     "error message",
     "failure message",
     "custom message"
-  ]
+  ],
+  "types": "./jasmine2-custom-message.d.ts"
 }
