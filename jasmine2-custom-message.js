@@ -25,7 +25,19 @@
   };
 
   var formatString = function(data, message) {
-    message = message.replace(/#\{actual\}/g, data.actual);
+    if (
+      (
+        data.matcherName === "toHaveBeenCalled" ||
+        data.matcherName === "toHaveBeenCalledTimes"
+      ) &&
+      data.actual &&
+      data.actual.calls &&
+      typeof data.actual.calls.count === 'function'
+    ) {
+      message = message.replace(/#\{actual\}/g, data.actual.calls.count());
+    } else {
+      message = message.replace(/#\{actual\}/g, data.actual);
+    }
     message = message.replace(/#\{expected\}/g, data.expected);
     return message;
   };
