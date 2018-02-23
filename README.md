@@ -52,12 +52,17 @@ describe('test', function() {
 
 ## Powerful
 
-You can use expected and actual value of the assertion in your custom message, by:
+You can use expected and actual values of the assertion in your custom message by:
 
   * Passing a function, and using `this.actual` and `this.expected`
   * Passing a string, and using `#{actual}` and `#{expected}`
 
-#### Example using a function
+You can include the full original message from Jasmine by:
+
+  * Passing a function, and using `this.message`
+  * Passing a string, and using `#{message}`
+
+#### Examples using a function
 
 ```js
 describe('test', function() {
@@ -70,6 +75,20 @@ describe('test', function() {
 });
 ```
 
+```js
+describe('multiple tests that need some context added to the message', function() {
+    it('should be ok for all options', function() {
+      // passes the 1st loop iteration, fails the 2nd
+      [1, 2, 3, 4, 5].forEach(testOptionIndex => {
+        since(function() {
+          return 'for test option ' + testOptionIndex + ': ' + this.message;
+        }).
+        expect(testOptionIndex).toEqual(1); // => for test option 2: Expected 2 to equal 1.  
+      });
+    });
+});
+```
+
 #### Example using a string
 
 ```js
@@ -78,6 +97,18 @@ describe('test', function() {
     since('#{actual} =/= #{expected}').
     expect(3).toEqual(4); // => '3 =/= 4'
   });
+});
+```
+
+```js
+describe('multiple tests that need some context added to the message', function() {
+    it('should be ok for all options', function() {
+      // passes the 1st loop iteration, fails the 2nd
+      [1, 2, 3, 4, 5].forEach(testOptionIndex => {
+        since('for test option ' + testOptionIndex + ': #{message}').
+        expect(testOptionIndex).toEqual(1); // => for test option 2: Expected 2 to equal 1.  
+      });
+    });
 });
 ```
 
