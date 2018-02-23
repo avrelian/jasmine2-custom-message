@@ -56,6 +56,12 @@
                   expect(3).toEqual(2);
               });
 
+              it('containing #{actual}, #{expected}, and #{message} replacements', function() {
+                expectMessageToEqual("2 bla-bla-bla 3, that is, Expected 3 to equal 2.").
+                since('#{expected} bla-bla-bla #{actual}, that is, #{message}').
+                expect(3).toEqual(2);
+              });
+
             });
 
             it('number', function() {
@@ -83,12 +89,28 @@
                     expect(3).toEqual(2);
                 });
 
+                it('concatenating with expected, actual, and message properties', function() {
+                  expectMessageToEqual("2 bla-bla-bla 3, that is, Expected 3 to equal 2.").
+                  since(function() {
+                    return this.expected + ' bla-bla-bla ' + this.actual + ', that is, ' + this.message;
+                  }).
+                  expect(3).toEqual(2);
+                });
+
                 it('containing #{actual} and #{expected} replacements', function() {
                   expectMessageToEqual("2 bla-bla-bla 3").
                     since(function() {
                       return '#{expected} bla-bla-bla #{actual}';
                     }).
                     expect(3).toEqual(2);
+                });
+
+                it('containing #{actual}, #{expected}, and #{message} replacements', function() {
+                  expectMessageToEqual("2 bla-bla-bla 3, that is, Expected 3 to equal 2.").
+                  since(function() {
+                    return '#{expected} bla-bla-bla #{actual}, that is, #{message}';
+                  }).
+                  expect(3).toEqual(2);
                 });
 
               });

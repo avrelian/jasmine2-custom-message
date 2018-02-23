@@ -38,6 +38,24 @@ require('../../jasmine2-custom-message');
                 expect(protractor.promise.fulfilled(3)).not.toEqual(3);
               });
 
+              describe('and original message is included', function() {
+                it('positively', function() {
+                  expectMessageToEqual("2 bla-bla-bla 3, that is, Expected 3 to equal 2.").
+                  since(function() {
+                    return this.expected + ' bla-bla-bla ' + this.actual + ', that is, ' + this.message;
+                  }).
+                  expect(protractor.promise.fulfilled(3)).toEqual(2);
+                });
+
+                it('negatively', function() {
+                  expectMessageToEqual("3 bla-bla-bla 3, that is, Expected 3 not to equal 3.").
+                  since(function() {
+                    return this.expected + ' bla-bla-bla ' + this.actual + ', that is, ' + this.message;
+                  }).
+                  expect(protractor.promise.fulfilled(3)).not.toEqual(3);
+                });
+              });
+
             });
 
             describe('and expected value is', function() {
@@ -62,6 +80,23 @@ require('../../jasmine2-custom-message');
                     expect(protractor.promise.fulfilled(3)).not.toEqual(protractor.promise.fulfilled(3));
                   });
 
+                  describe('and original message is included', function() {
+                    it('positively', function() {
+                      expectMessageToEqual("2 bla-bla-bla 3, that is, Expected 3 to equal 2.").
+                      since(function() {
+                        return this.expected + ' bla-bla-bla ' + this.actual + ', that is, ' + this.message;
+                      }).
+                      expect(protractor.promise.fulfilled(3)).toEqual(protractor.promise.fulfilled(2));
+                    });
+
+                    it('negatively', function() {
+                      expectMessageToEqual("3 bla-bla-bla 3, that is, Expected 3 not to equal 3.").
+                      since(function() {
+                        return this.expected + ' bla-bla-bla ' + this.actual + ', that is, ' + this.message;
+                      }).
+                      expect(protractor.promise.fulfilled(3)).not.toEqual(protractor.promise.fulfilled(3));
+                    });
+                  });
                 });
 
               });

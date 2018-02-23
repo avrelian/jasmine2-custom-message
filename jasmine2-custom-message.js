@@ -39,6 +39,7 @@
       message = message.replace(/#\{actual\}/g, data.actual);
     }
     message = message.replace(/#\{expected\}/g, data.expected);
+    message = message.replace(/#\{message\}/g, data.message);
     return message;
   };
 
