@@ -39,13 +39,16 @@ interface ExpectWrapper {
 
 /**
  * Add a dynamic custom message.
+ * The original message from jasmine is available as this.message
  * The return value will be converted with toString()
  * If it is already a string #{actual} and #{expected} will be replaced with the current values.
+ * #{message} will be replaced with the original message from jasmine.
  */
 declare function since(messageGenerator: (this: Jasmine2CustomMessageFncParam) => any): ExpectWrapper;
 /**
  * Add a custom message.
  * #{actual} and #{expected} will be replaced with the current values.
+ * #{message} will be replaced with the original message from jasmine.
  */
 declare function since(message: string): ExpectWrapper;
 /**
