@@ -146,9 +146,17 @@ var since = require('jasmine2-custom-message');
 
 ## Change log
 
+v0.9.0 - 2018.03.01
+
+  * improved "format string" functionality: `#{message}` added for the original jasmine2 error message (kudos to Keith Zimmerman)
+  * corrected output for `toHaveBeenCalled` matcher (kudos to Holger Jeromin)
+  * updated `protractor` environment (kudos to Keith Zimmerman)
+  * added `typescript` definitions (kudos to Holger Jeromin and Andrew N Marshall)
+  * updated specs
+
 v0.8.0 - 2015.08.05
 
-  * implemented "format string" functionality: #{actual} and #{expected}
+  * implemented "format string" functionality: `#{actual}` and `#{expected}`
   * configured `protractor` environment
   * corrected displaying of colors in tests running through `protractor`
   * updated specs
@@ -180,4 +188,4 @@ v0.7.0 - 2014.10.23
 
 ## Release plan
 
-`v0.9.0` - some new features (based on requests from Issues)
+`v1.0.0` - some new features and updates (based on requests from Issues)
