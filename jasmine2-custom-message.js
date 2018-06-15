@@ -92,15 +92,12 @@
     };
   };
 
-  var defineSince = function() {
-    return global.since = since;
-  };
-
   if (isBrowserEnv) {
-    defineSince();
+    global.since = since
   } else {
     if (isCommonJS) {
-      module.exports = defineSince();
+      global.since = since;
+      module.exports = since;
     }
   }
 })();
