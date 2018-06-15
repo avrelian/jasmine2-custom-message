@@ -92,12 +92,12 @@
     };
   };
 
-  if (isBrowserEnv) {
+  if (isCommonJS) {
+    global.since = since;
+    module.exports = since;
+  } else if (isBrowserEnv) {
     global.since = since
   } else {
-    if (isCommonJS) {
-      global.since = since;
-      module.exports = since;
-    }
+    // error: Could not initialize jasmine2-custom-message
   }
 })();
