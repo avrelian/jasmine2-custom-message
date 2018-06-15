@@ -86,12 +86,14 @@
     };
   };
 
-  var defineSince = function() {
-    return global.since = function(customMessage) {
-      return {
-        expect: wrapExpect(global.expect, customMessage)
-      };
+  var since = function(customMessage) {
+    return {
+      expect: wrapExpect(global.expect, customMessage)
     };
+  };
+
+  var defineSince = function() {
+    return global.since = since;
   };
 
   if (isBrowserEnv) {
