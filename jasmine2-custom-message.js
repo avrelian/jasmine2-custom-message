@@ -6,10 +6,9 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
+(function(global) {
+  'use strict';
 
-(function() {
-  var global = Function('return this')();
   if (! (global.jasmine && global.expect)) {
     return;
   }
@@ -91,4 +90,4 @@
   if (typeof module !== 'undefined' && typeof module.exports === 'object') {
     module.exports = global.since;
   }
-})();
+})((function(){return this;})());
