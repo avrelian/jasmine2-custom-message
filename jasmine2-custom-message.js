@@ -14,10 +14,6 @@
     return;
   }
 
-  var isBrowserEnv = global.window && global === global.window;
-  var isCommonJS = typeof module !== 'undefined' && typeof module.exports === 'object';
-
-
   var ofType = function(val) {
     var types = [].slice.call(arguments, 1);
     var valType = val === null ? 'null' : typeof val;
@@ -86,18 +82,13 @@
     };
   };
 
-  var since = function(customMessage) {
+  global.since = function(customMessage) {
     return {
       expect: wrapExpect(global.expect, customMessage)
     };
   };
 
-  if (isCommonJS) {
-    global.since = since;
-    module.exports = since;
-  } else if (isBrowserEnv) {
-    global.since = since
-  } else {
-    // error: Could not initialize jasmine2-custom-message
+  if (typeof module !== 'undefined' && typeof module.exports === 'object') {
+    module.exports = global.since;
   }
 })();
