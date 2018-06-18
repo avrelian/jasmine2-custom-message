@@ -14,10 +14,6 @@
     return;
   }
 
-  var isBrowserEnv = global.window && global === global.window;
-  var isCommonJS = typeof module !== 'undefined' && typeof module.exports === 'object';
-
-
   var ofType = function(val) {
     var types = [].slice.call(arguments, 1);
     var valType = val === null ? 'null' : typeof val;
@@ -86,19 +82,13 @@
     };
   };
 
-  var defineSince = function() {
-    return global.since = function(customMessage) {
-      return {
-        expect: wrapExpect(global.expect, customMessage)
-      };
+  global.since = function(customMessage) {
+    return {
+      expect: wrapExpect(global.expect, customMessage)
     };
   };
 
-  if (isBrowserEnv) {
-    defineSince();
-  } else {
-    if (isCommonJS) {
-      module.exports = defineSince();
-    }
+  if (typeof module !== 'undefined' && typeof module.exports === 'object') {
+    module.exports = global.since;
   }
 })();
