@@ -86,19 +86,18 @@
     };
   };
 
-  var defineSince = function() {
-    return global.since = function(customMessage) {
-      return {
-        expect: wrapExpect(global.expect, customMessage)
-      };
+  var since = function(customMessage) {
+    return {
+      expect: wrapExpect(global.expect, customMessage)
     };
   };
 
-  if (isBrowserEnv) {
-    defineSince();
+  if (isCommonJS) {
+    global.since = since;
+    module.exports = since;
+  } else if (isBrowserEnv) {
+    global.since = since
   } else {
-    if (isCommonJS) {
-      module.exports = defineSince();
-    }
+    // error: Could not initialize jasmine2-custom-message
   }
 })();
