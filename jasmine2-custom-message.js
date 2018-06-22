@@ -90,4 +90,6 @@
   if (typeof module !== 'undefined' && typeof module.exports === 'object') {
     module.exports = global.since;
   }
+
+  return global.since;
 })((function(){return this;})());
