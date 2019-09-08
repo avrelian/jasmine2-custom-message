@@ -1,7 +1,7 @@
 {
   "name": "jasmine2-custom-message",
   "description": "custom failure message on any jasmine assertion",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "homepage": "https://github.com/avrelian/jasmine2-custom-message",
   "author": {
     "name": "Sergey Radchenko",
@@ -30,7 +30,7 @@
     "pretest": "webdriver-manager update"
   },
   "devDependencies": {
-    "diff": "~1.0.8",
+    "diff": "~3.5.0",
     "es5-shim": "~4.0.0",
     "jasmine": "~2.2.1",
     "grunt": "~0.4.2",
